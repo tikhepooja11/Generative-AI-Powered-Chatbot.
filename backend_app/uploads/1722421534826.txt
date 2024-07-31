@@ -1,0 +1,36 @@
+ng g component navbar
+ng g service emailservice
+import angular material in app-root component as it is parent component only, so no need to import in remaining one's
+
+dynamically replacable components are represented by router-outlet tag.
+routerLink avoids page refreshment in angular (solution to anchor tag)
+
+It is not recommended to interact directly components with backend but either we should interact service with backend.
+we can inject service class into another components to get things done.
+
+ngOnInit(), ngIf(), ng-template, [ngClass], [ngSwitch], *ngFor
+ngOnInit() -> when we create a component using angular cli, then that class automatically implements OnInit interface
+constructor gets executed first than ngOnInit()
+
+
+here loggedOut - template reference variable 
+
+<div *ngIf="data.loggedIn == true; else loggedOut" class="bg-info p-2 mt-1">
+    <h1>Hi {{data.name}} You are logged in Currently!</h1>
+</div>
+<ng-template #loggedOut>
+    <h1 class="bg-info p-2 mt-1">You are browsing our site as a Guest! Please Lo
+  </ng-template>
+
+<div [ngSwitch]="userRole">
+  <p *ngSwitchCase="'admin'">Welcome Admin!</p>
+  <p *ngSwitchCase="'user'">Welcome User!</p>
+  <p *ngSwitchDefault>Welcome Guest!</p>
+</div>
+
+
+we are using ng-container instead of normal html container to avoid so many extra elements in DOM page.
+@Input Decorator - If we want to receive  data/values from parent components, then we have declared those as many as variables using @Input decorator.
+
+Passing data from parent to child -> define variables using @Input decorator - incase of this data is properties/values
+Passing data from child to parent -> Define variable using @Output decorator - incase of this data is an event

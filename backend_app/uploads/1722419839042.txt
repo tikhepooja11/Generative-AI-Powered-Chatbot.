@@ -1,0 +1,156 @@
+Previously If we need dependency injection, then we were manually creating an object using new keyword of required dependency wherever required, but this makes our application highly coupled so that we are not able to make changes in future again, so 
+
+spring automatically creates an objects and passes/injects as dependency which makes applin loosely coupled.
+This technique is called IOC.
+
+Autowiring -> spring feature through which spring container injects dependency automatically. Means linking/injecting one object into another object...
+
+UI              -> business/service -> data access layer -> DB
+controller -> service                   ->      repository/Dao          -> entity
+
+
+IOC container -> maintains lifecycle of an object/bean-> create, holding/saving in memory, injects in other classes based on defined configuration 
+
+So we have to give 2 things to IOC container -> POJO's Beans & Configuration file.
+
+ApplicationContext -> It is an interface that represents our IOC container. implements classPathXMLApplicationContext, AnnotationConfigApplicationContext, FileSystemPathXMLApplicationContext.
+
+Ways of DI -> ek object la dusrya object mdhe takne e.g address object la student object mdhe takayche	
+	1.	Setter Injection/Property injection  - with setAttribute() methods
+	2.	Constructor Injection - with parameterized constructor
+
+this injection methods makes our application decoupled, so that if there any change needed we dont need to change everywhere in file but in only one config.xml file
+
+-------------------------------------
+
+Autowiring -> 
+
+@Autowired annotation works with byType mode i.e with class name not by bean name. So we can put any name to bean, but if there are multiple beans with same Type but diff names then to inject exact bean we have to use @Qualifier annotation by specifiying exact bean name into @Qualifier('bean name')
+
+// @Component("ob") then object will be created with "ob" name instead of default student name, so getBean("ob")
+
+
+16. Invoking Predefined static methods, variables & creating objects using @Value annotation
+
+@Value("#{T(java.lang. Math).sqrt(144) }")
+private double z;
+@Value("#{ T(java.lang.Math).PI }")
+private double e;
+@Value("#{ new java.lang.String('Durgesh Tiwari') }")
+private String name;
+
+
+
+------------------------------------------------
+
+SPRING BOOT = spring framework + embedded servers - Configuration 
+
+Static filtering involves hardcoding which fields are included or excluded from the response. This decision is typically made at the design or implementation phase and does not change during runtime. 
+
+Dynamic Filtering - For the same bean/entity class there can be different Filtering criteria for diff Rest API.
+ability to specify which fields should be included or excluded from the API response based on client requests
+
+
+db.users.find({}) - select * from user;
+db.user.find({name:"Pooja Tikhe"})
+
+parent - managedreference
+child- jsonbackreference
+
+user -> useractivities
+
+Note -> If we do not write cascade type it will not saved automatically, we will have to manually save it.
+
+@ElementCollection -  // used when we are mapping entity with collection of base type .i.e here list
+                        // of string ..
+     // If comment defined as other entity then use @OneToMany or @ManyToOne
+     // collection as it has its own attribute it will create its own table.
+     // If comment is not an entity (not defined as seperate table structure) then we
+     // have to give @ElementCollection annotation.
+
+
+
+by default many to one relationships are EAGER type  bydefault, so defined it by lazy.
+also in one to many to avoid infinite circular obj recursion we apply mangedRefe on parent and backreef on child class,
+similarly when we does it / fetch it from many to one point of view we should apply manageref on many(post entity as parent entity) and backreef on user entity which is child in this case .
+
+
+ChatGPT
+If you're still seeing the entire data of related entities (User with all Post objects) even after using @JsonManagedReference and @JsonBackReference, it's important to ensure a few things are correctly set up:
+
+1. Correct Placement of Annotations
+Make sure you have placed @JsonManagedReference on the collection side (List<Post> posts) and @JsonBackReference on the single entity side (User user).
+
+Example:
+java
+Copy code
+@Entity
+public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    private String name;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @JsonManagedReference
+    private List<Post> posts = new ArrayList<>();
+
+    // Other fields, getters, setters, etc.
+}
+
+@Entity
+public class Post {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    private String content;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    @JsonBackReference
+    private User user;
+
+    // Other fields, getters, setters, etc.
+}
+2. Using FetchType.LAZY - to load related entities lazily
+Ensure that you are using FetchType.LAZY for the @ManyToOne or @OneToMany relationships where appropriate. This instructs Hibernate to load related entities lazily, only when they are accessed, which can prevent fetching unnecessary data.
+
+3. Verify Serialization Context
+Check the context in which the serialization is happening. Jackson annotations (@JsonManagedReference and @JsonBackReference) only affect JSON serialization within the scope of your REST API responses. If you are seeing the entire data in logs or during debugging sessions, it may not be affected by these annotations.
+
+Example of Correct Behavior
+When you fetch a User object and serialize it to JSON, @JsonManagedReference on posts should prevent serialization of posts within User:
+
+json
+Copy code
+{
+  "id": 1,
+  "name": "John Doe"
+}
+When you fetch a Post object and serialize it to JSON, @JsonBackReference on user should prevent serialization of user within Post:
+
+json
+Copy code
+{
+  "id": 1,
+  "content": "This is a post content."
+}
+
+
+------------------
+Why we use @PostMapping on controllers, to get data as well
+@getmapping / get method for postman expects data to receive from requestparam or pathvariable only not from requestbody
+
+@postmapping/post method - when we want to get data but we are passing data from request body (passing userIds to get data of users) then we have to though to fetch user data as well.
+
+
+-----------------------
+SPRING SECURITY
+Filter - works same as middleware in node applications.
+dpendency - spring-boot-starter-security
+
+By default in spring security 6- It enables both spring form based and http basic authentication
+To make it work we need to do, spring security configuration
+

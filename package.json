@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "docx": "^8.5.0",
+    "pdf-parse": "^1.1.1",
+    "textract": "^2.5.0"
+  }
+}
