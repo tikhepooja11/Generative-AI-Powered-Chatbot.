@@ -40,4 +40,4 @@ This project features a sophisticated AI-powered chatbot that leverages the Goog
 ![Screenshot (129)](https://github.com/user-attachments/assets/3b06a4d4-a690-4adb-b10a-592157efed71)
 
 
-![Screenshot (130)](https://github.com/user-attachments/assets/9d01113f-e240-4ea4-8b7d-d12912b6b703)
+![Screenshot (131)](https://github.com/user-attachments/assets/6fd0378e-6d40-4d5e-843a-6016605bce0d)
