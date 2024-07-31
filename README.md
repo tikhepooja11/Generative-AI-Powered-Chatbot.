@@ -26,3 +26,18 @@ This project features a sophisticated AI-powered chatbot that leverages the Goog
 - **AI Models**: Google Gemini Pro-Vision, Gemini-1.5 Flash
 - **Other**: LangChain
 
+## Snapshots -
+
+![Screenshot (126)](https://github.com/user-attachments/assets/d0f0a68e-57a2-4ccb-a761-69331842d99e)
+
+
+![Screenshot (127)](https://github.com/user-attachments/assets/10a01c51-4515-49e9-ab40-c33317a96664)
+
+
+![Screenshot (128)](https://github.com/user-attachments/assets/3c9527b0-dcad-470e-bd26-0c79b793db83)
+
+
+![Screenshot (129)](https://github.com/user-attachments/assets/3b06a4d4-a690-4adb-b10a-592157efed71)
+
+
+![Screenshot (130)](https://github.com/user-attachments/assets/9d01113f-e240-4ea4-8b7d-d12912b6b703)
